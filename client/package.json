@@ -1,0 +1,30 @@
+{
+    "name": "client_vue",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build"
+    },
+    "dependencies": {
+        "@kinescope/vue-kinescope-player": "^1.0.3",
+        "axios": "^1.2.2",
+        "bulma": "^0.9.4",
+        "bulma-toast": "^2.4.2",
+        "core-js": "^3.8.3",
+        "i18n": "^0.15.1",
+        "vue": "^2.6.14",
+        "vue-i18n": "^8.28.2",
+        "vue-router": "^3.5.1",
+        "vuex": "^3.6.2"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~5.0.0",
+        "@vue/cli-plugin-router": "~5.0.0",
+        "@vue/cli-plugin-vuex": "~5.0.0",
+        "@vue/cli-service": "^5.0.8",
+        "sass": "^1.32.7",
+        "sass-loader": "^12.0.0",
+        "vue-template-compiler": "^2.6.14"
+    }
+}
