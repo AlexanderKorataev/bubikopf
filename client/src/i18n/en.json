@@ -1,8 +1,9 @@
 {
     "LogIn": "Log In",
-    "language": "RU",
+    "language": "EN",
     "lessons": "Lessons",
     "PersonalAccount": "Personal account",
     "about": "Information about the teacher",
+    "aboutBtn": "About the teacher",
     "LogOut": "Log out"
 }

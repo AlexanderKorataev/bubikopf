@@ -1,4 +1,4 @@
-import { defineConfig } from '@vue/cli-service'
-export default defineConfig({
-    transpileDependencies: true,
-})
+// import { defineConfig } from '@vue/cli-service'
+// export default defineConfig({
+//     transpileDependencies: true,
+// })

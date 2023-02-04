@@ -1,10 +1,9 @@
-<!-- has-text-centered -->
 <template>
     <div v-if="$i18n.locale === 'ru'">
         <div class="page-product">
             <div class="columns is-multiline">
                 <div class="column is-7">
-                    <div class="column is-8">
+                    <div class="column is-9">
                     <figure class="image mb-6">
                         <img v-bind:src="product.get_image">
                     </figure>
@@ -21,9 +20,7 @@
                     <p class="is-size-4"><strong></strong>{{ product.ru_price }} рублей</p>
                     <div class="field has-addons mt-6">
 
-                        <div class="control">
-                            <a class="button is-dark">Перейти к покупке</a>
-                        </div>
+                        <button class="button is-dark" @click="createOrder">Перейти к покупке</button>
                     </div>
                 </div>
             </div>
@@ -34,14 +31,14 @@
         <div class="page-product">
             <div class="columns is-multiline">
                 <div class="column is-7">
-                    <div class="column is-8">
+                    <div class="column is-9">
                     <figure class="image mb-6">
                         <img v-bind:src="product.get_image">
                     </figure>
                     </div>
 
                 </div>
-                
+
                 <div class="column is-4">
               
                     <h1 class="title">{{ product.en_name }}</h1>
@@ -51,10 +48,7 @@
 
                     <p class="is-size-4"><strong></strong>${{ product.en_price }}</p>
                     <div class="field has-addons mt-6">
-
-                        <div class="control">
-                            <a class="button is-dark">Go to purchase</a>
-                        </div>
+                        <button class="button is-dark" @click="createOrder">Go to purchase</button>
                     </div>
                 </div>
             </div>
@@ -71,11 +65,11 @@ export default {
     data() {
         return {
             product: {},
-            quantity: 1
         }
     },
+
     mounted() {
-        this.getProduct() 
+        this.getProduct()
     },
     methods: {
         async getProduct() {
@@ -93,24 +87,27 @@ export default {
             
             this.$store.commit('setIsLoading', false)
         },
-        addToCart() {
-            if (isNaN(this.quantity) || this.quantity < 1) {
-                this.quantity = 1
+        async createOrder() {
+
+            var randomID = Math.random().toString(36).slice(-10);
+
+            const data = {
+                'name': this.product.ru_name,
+                'product_id': this.product.id,
+                'paid_amount': this.product.ru_price,
+                'randomID': randomID
             }
-            const item = {
-                product: this.product,
-                quantity: this.quantity
-            }
-            this.$store.commit('addToCart', item)
-            toast({
-                message: 'The product was added to the cart',
-                type: 'is-success',
-                dismissible: true,
-                pauseOnHover: true,
-                duration: 2000,
-                position: 'bottom-right',
-            })
-        }
+            await axios
+                .post('/api/v1/checkout/', data)
+                .then(response => {
+                    this.$router.push('/my-account/checkout/' + randomID)
+                })
+                .catch(error => {
+                    this.errors.push('Something went wrong. Please try again')
+                    console.log(error)
+                })
+                this.$store.commit('setIsLoading', false)
+        },
     }
 }
 </script>

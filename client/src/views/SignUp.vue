@@ -67,6 +67,9 @@ export default {
             errors: []
         }
     },
+    mounted() {
+        document.title = 'SingUp | БубиКопф'
+    },
     methods: {
         submitForm() {
             this.errors = []

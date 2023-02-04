@@ -11,13 +11,16 @@
 
             <hr>
 
-            <div class="column is-12">
-                <h2 class="subtitle">Ваши курсы</h2>
+            <div v-if="$i18n.locale === 'ru'" class="column is-12">
+                <bold><h2 class="subtitle">Ваши приобретенные уроки</h2></bold>
+            </div>
 
+            <div v-else class="column is-12">
+                <bold><h2 class="subtitle">Your acquired lessons</h2></bold>
             </div>
 
             <UserProductBox
-            v-for="product in orders"
+            v-for="product in lessons"
             v-bind:key="product.id"
             v-bind:product="product"
             />
@@ -41,6 +44,7 @@ export default {
     data() {
         return {
             orders: [],
+            lessons: [],
             latestProducts: []
         };
     },
@@ -62,9 +66,11 @@ export default {
         async getMyOrders() {
             this.$store.commit("setIsLoading", true);
             await axios
-            .get("/api/v1/orders/")
+            .get("/api/v1/user_orders/")
             .then((response) => {
               this.orders = response.data;
+
+              this.lessons = [this.orders.find(x => x.get_payment_status === 'succeeded')];
             })
             .catch((error) => {
               console.log(error);

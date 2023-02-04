@@ -14,7 +14,7 @@
                 <p>{{ lesson.video_duration }} минут</p>
             </div>
 
-            <router-link v-bind:to="'products/' + lesson.get_absolute_url" class="button is-dark mt-4">Перейти к просмотру</router-link>
+            <router-link v-bind:to="'my-account' + lesson.get_absolute_url" class="button is-dark mt-4">Перейти к просмотру</router-link>
         </div>
     </div>
 

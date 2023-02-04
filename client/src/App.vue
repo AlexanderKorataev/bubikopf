@@ -20,6 +20,10 @@
                 <button class="button is-light" @click="switchLang">{{$t('language')}}</button>
               </template>
 
+              <template>
+                <router-link to="/about" class="button is-light">{{$t('aboutBtn')}}</router-link>
+              </template>
+
               <template v-if="$store.state.isAuthenticated">
                 <router-link to="/my-account" class="button is-light">{{$t('PersonalAccount')}}</router-link>
               </template>
@@ -42,9 +46,11 @@
       <router-view/>
     </section>
 
-    <footer class="footer">
-      <p class="has-text-centered">pochta@gmail.com</p>
-      <p class="has-text-centered">Договор оферты</p>
+    <footer class="footer" role="contentinfo">
+      <div class="content has-text-centered">
+        <p>pochta@gmail.com</p>
+        <p>Договор оферты</p>
+      </div>
     </footer>
   </div>
 </template>
@@ -72,18 +78,18 @@ export default {
     }
   },
 
-  mounted() {
-    this.cart = this.$store.state.cart
-  },
-  computed: {
-      cartTotalLength() {
-          let totalLength = 0
-          for (let i = 0; i < this.cart.items.length; i++) {
-              totalLength += this.cart.items[i].quantity
-          }
-          return totalLength
-      }
-  },
+  // mounted() {
+  //   this.cart = this.$store.state.cart
+  // },
+  // computed: {
+  //     cartTotalLength() {
+  //         let totalLength = 0
+  //         for (let i = 0; i < this.cart.items.length; i++) {
+  //             totalLength += this.cart.items[i].quantity
+  //         }
+  //         return totalLength
+  //     }
+  // },
   methods: {
     switchLang() {
       i18n.locale === "ru" ? i18n.locale = "en" : i18n.locale = "ru"
@@ -96,42 +102,32 @@ export default {
 <style lang="scss">
 @import '../node_modules/bulma';
 
-// body {
-//   background: url("./assets/bg.jpg");
-//   background-attachment: fixed;
-//   -webkit-background-size: cover;
-//   -moz-background-size: cover;
-//   -o-background-size: cover;
-//   background-size: cover;
-//   }
+body {
+  font-family: MontserratRegular;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 
-// шрифт который не работает 
 @font-face {
-  font-family: Roboto;
-  letter-spacing: 30px;
-  // gap: 100px;
-  // font-weight: auto;
-  // font-style: normal;
-  // font-display: auto;
-  // unicode-range: U+000-5FF;
-  src: url(./assets/fonts/traktirnormal.ttf), format("truetype"),; 
-  font-weight: normal;
+  font-family: MontserratRegular;
   font-style: normal;
+  src: url(./assets/fonts/MontserratRegular.woff); 
 }
 
 // vars
 $dark: #242424;
 $lite: #fff;
 
+#wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
-// .navbar {
-//   background-color: $dark;
-
-//   &-item {
-//       color: $lite;
-//       // pointer-events: none;
-//   }
-// }
+footer {
+  margin-top: auto;
+}
 
 .lds-dual-ring {
   display: inline-block;

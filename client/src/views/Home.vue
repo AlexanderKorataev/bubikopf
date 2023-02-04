@@ -1,11 +1,5 @@
 <template>
   <div class="home">
-    <section class="hero is-medium is-dark mb-6">
-      <div class="hero-body has-text-centered">
-        <p class="title mb-6">Приветствуем в нашей супер онлайн школе😃👍</p>
-        <p class="subtitle">Лучшие онлайн курсы по волосам</p>
-      </div>
-    </section>
 
     <div class="columns is-multiline">
       <div class="column is-12">
@@ -27,7 +21,6 @@
           v-bind:product="product"
         />
       </template>
-
     </div>
   </div>
 
@@ -35,10 +28,6 @@
 
 <script>
 import axios from "axios";
-
-// import { KinescopePlayer } from "@kinescope/vue-kinescope-player";
-
-import { i18n } from "../i18n";
 
 import EnProductBox from "@/components/EnProductBox";
 import RuProductBox from "@/components/RuProductBox";
@@ -56,6 +45,7 @@ export default {
   },
   mounted() {
     this.getLatestProducts();
+    this.getLatestOrders();
     document.title = "Home | БубиКопф";
   },
   methods: {

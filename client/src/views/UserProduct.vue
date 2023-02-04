@@ -1,30 +1,6 @@
 <template>
+    <div v-if="acquisitionStatus===true">
 
-    
-    <div class="column is-12">
-        <div v-if="$i18n.locale === 'ru'">
-        <h2 class="is-size-2 has-text-centered">{{ product.ru_name }}</h2>
-
-        <section class="hero is-dark mb-3">
-            <div class="hero-body has-text-centered">
-                <p class="title mb-6">{{ product.ru_description }}</p>
-            </div>
-        </section>
-        </div>
-
-        <div v-else>
-        <h2 class="is-size-2 has-text-centered">{{ product.en_name }}</h2>
-
-        <section class="hero is-dark mb-3">
-            <div class="hero-body has-text-centered">
-                <p class="title mb-6 is-3">{{ product.en_description }}</p>
-            </div>
-        </section>
-        </div>
-
-        <hr>
-        
-        <!-- desktop player -->
         <div class="column is-hidden-mobile">
             <kinescope-player
                 class="has-text-centered"
@@ -34,10 +10,10 @@
                 width="80%"
                 height="430px"
             ></kinescope-player>
-      </div>
+        </div>
 
-      <!-- mobile player -->
-      <div class="1 is-hidden-desktop">
+        <!-- mobile player -->
+        <div class="1 is-hidden-desktop">
             <kinescope-player
                 class="has-text-centered"
                 ref="kinescope"
@@ -45,9 +21,52 @@
                 @ready="handleReady"
                 width="90%"
             ></kinescope-player>
-      </div>
+        </div>
 
+        <hr>
+        
+        <div v-if="$i18n.locale === 'ru'">
+        <div class="page-product">
+            <div class="columns is-multiline">
+                <div class="column is-7">
+                    <div class="column is-9">
+                    <figure class="image mb-6">
+                        <img v-bind:src="product.get_image">
+                    </figure>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <h1 class="title">{{ product.ru_name }}</h1>
+                    <p>{{ product.ru_description }}</p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div v-else>
+        <div class="page-product">
+            <div class="columns is-multiline">
+                <div class="column is-7">
+                    <div class="column is-9">
+                    <figure class="image mb-6">
+                        <img v-bind:src="product.get_image">
+                    </figure>
+                    </div>
+
+                </div>
+
+                <div class="column is-4">
+              
+                    <h1 class="title">{{ product.en_name }}</h1>
+                    <p>{{ product.en_description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-else></div>
 </template>
 
 <script>
@@ -60,13 +79,22 @@ export default {
     data() {
         return {
                 product: {},
-                quantity: 1,
+                lessons: [],
+
+                orders: [],
+
+                acquisitionStatus: false,
 
                 showMobileMenu: false
             }
         },
     mounted() {
-        this.getProduct() 
+        this.getProduct()
+        this.getMyOrders() 
+    },
+    beforeMount(){
+        this.getProduct()
+        this.getMyOrders() 
     },
     components: {
         KinescopePlayer,
@@ -87,17 +115,26 @@ export default {
                 
             this.$store.commit('setIsLoading', false)
         },
+        async getMyOrders() {
+            this.$store.commit("setIsLoading", true);
+            const product_slug = this.$route.params.product_slug
+
+            await axios
+            .get("/api/v1/user_orders/")
+            .then((response) => {
+              this.orders = response.data;
+            
+              this.lessons = this.orders.find(x => x.product_id === this.product.id.toString());
+
+              if (this.lessons.get_payment_status === "succeeded") {
+                this.acquisitionStatus = true;
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+              this.$store.commit("setIsLoading", false);
+        },
     }
 }
 </script>
-
-<!-- <style scoped>
-
-@media screen and (max-width: 600px) {
- {
-visibility: hidden;
-display: none;
-}
-}
-
-</style> -->

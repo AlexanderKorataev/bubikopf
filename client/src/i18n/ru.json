@@ -1,8 +1,9 @@
 {
     "LogIn": "Войти",
-    "language": "EN",
-    "lessons": "Курсы",
+    "language": "RU",
+    "lessons": "Уроки",
     "PersonalAccount": "Личный кабинет",
     "about": "Информация о преподавателе",
+    "aboutBtn": "О преподавателе",
     "LogOut": "Выйти"
 }
