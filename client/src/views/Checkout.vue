@@ -9,8 +9,8 @@
                 <table class="table is-fullwidth">
                     <thead>
                         <tr>
-                            <th>Урок</th>
-                            <th>Стоимость</th>
+                            <th>{{ $t('lessons') }}</th>
+                            <th>{{ $t('price') }}</th>
                         </tr>
                     </thead>
 
@@ -23,7 +23,7 @@
 
                 </table>
 
-                <button class="button is-dark" @click="submitForm">Pay with Stripe</button>
+                <button class="button is-dark" @click="submitForm">{{ $t('pay') }}</button>
             </div>
             </div>
         </div>
@@ -44,9 +44,8 @@ export default {
             }
         },
     mounted() {
-
         this.getOrder()
-
+        document.title = "Оформление покупки | БубиКопф";
     },
     methods: {
 

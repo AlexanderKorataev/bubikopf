@@ -46,7 +46,7 @@ export default {
   mounted() {
     this.getLatestProducts();
     this.getLatestOrders();
-    document.title = "Home | БубиКопф";
+    document.title = "Домашняя страница | БубиКопф";
   },
   methods: {
     async getLatestProducts() {

@@ -2,11 +2,11 @@
     <div class="page-sign-up">
         <div class="columns">
             <div class="column is-4 is-offset-4">
-                <h1 class="title">Регистрация</h1>
+                <h1 class="title">{{ $t('SingUp') }}</h1>
 
                 <form @submit.prevent="submitForm">
                     <div class="field">
-                        <label>Имя пользователя</label>
+                        <label>{{ $t('userName') }}</label>
                         <div class="control">
                             <input type="text" class="input" v-model="username">
                         </div>
@@ -20,14 +20,14 @@
                     </div>
 
                     <div class="field">
-                        <label>Пароль</label>
+                        <label>{{ $t('password') }}</label>
                         <div class="control">
                             <input type="password" class="input" v-model="password">
                         </div>
                     </div>
 
                     <div class="field">
-                        <label>Повторите пароль</label>
+                        <label>{{ $t('RepeatPassword') }}</label>
                         <div class="control">
                             <input type="password" class="input" v-model="password2">
                         </div>
@@ -39,13 +39,19 @@
 
                     <div class="field">
                         <div class="control">
-                            <button class="button is-dark">Зарегистрироваться</button>
+                            <button class="button is-dark">{{ $t('Singup') }}</button>
                         </div>
                     </div>
 
                     <hr style="background-color:#242424">
 
-                    Или <router-link to="/log-in">нажмите здесь</router-link> чтобы войти.
+                    <template v-if="$i18n.locale === 'ru'">
+                        Или <router-link to="/log-in">нажмите здесь</router-link> чтобы войти.
+                    </template>
+
+                    <template v-if="$i18n.locale === 'en'">
+                        Or <router-link to="/log-in">click here</router-link> to log in
+                    </template>
                 </form>
             </div>
         </div>
@@ -68,7 +74,7 @@ export default {
         }
     },
     mounted() {
-        document.title = 'SingUp | БубиКопф'
+        document.title = 'Регистрация | БубиКопф'
     },
     methods: {
         submitForm() {

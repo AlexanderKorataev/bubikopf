@@ -7,3 +7,13 @@
     </figure>
   </div>
 </template>
+
+<script>
+export default {
+  name: "Home",
+
+  mounted() {
+    document.title = "О преподавателе | БубиКопф";
+  },
+};
+</script>

@@ -66,7 +66,12 @@
         </div>
     </div>
 
-    <div v-else></div>
+    <div v-else>
+
+        <!-- <p>{{ lesson }}</p>
+
+        <p>{{ lesson.find(x => x.get_payment_status === "succeeded").randomID }}</p> -->
+    </div>
 </template>
 
 <script>
@@ -79,7 +84,7 @@ export default {
     data() {
         return {
                 product: {},
-                lessons: [],
+                lesson: [],
 
                 orders: [],
 
@@ -102,7 +107,9 @@ export default {
     methods: {
         async getProduct() {
             this.$store.commit('setIsLoading', true)
+
             const product_slug = this.$route.params.product_slug
+
             await axios
                 .get(`/api/v1/products/${product_slug}`)
                 .then(response => {
@@ -117,16 +124,17 @@ export default {
         },
         async getMyOrders() {
             this.$store.commit("setIsLoading", true);
-            const product_slug = this.$route.params.product_slug
 
             await axios
             .get("/api/v1/user_orders/")
             .then((response) => {
               this.orders = response.data;
             
-              this.lessons = this.orders.find(x => x.product_id === this.product.id.toString());
+              this.lesson = this.orders.filter(x => x.product_id === this.product.id.toString());
 
-              if (this.lessons.get_payment_status === "succeeded") {
+              this.payment_status = this.lesson.find(x => x.get_payment_status === "succeeded").get_payment_status;
+
+              if (this.payment_status === "succeeded") {
                 this.acquisitionStatus = true;
               }
             })

@@ -17,19 +17,19 @@
           <div class="navbar-item">
             <div class="buttons">
               <template>
-                <button class="button is-light" @click="switchLang">{{$t('language')}}</button>
+                <button class="button is-light" @click="switchLang">{{ $t('language') }}</button>
               </template>
 
               <template>
-                <router-link to="/about" class="button is-light">{{$t('aboutBtn')}}</router-link>
+                <router-link to="/about" class="button is-light">{{ $t('aboutBtn') }}</router-link>
               </template>
 
               <template v-if="$store.state.isAuthenticated">
-                <router-link to="/my-account" class="button is-light">{{$t('PersonalAccount')}}</router-link>
+                <router-link to="/my-account" class="button is-light">{{ $t('PersonalAccount') }}</router-link>
               </template>
 
               <template v-else>
-                <router-link to="/log-in" class="button is-light">{{$t('LogIn')}}</router-link>
+                <router-link to="/log-in" class="button is-light">{{ $t('LogIn') }}</router-link>
               </template>
 
             </div>
@@ -49,7 +49,7 @@
     <footer class="footer" role="contentinfo">
       <div class="content has-text-centered">
         <p>pochta@gmail.com</p>
-        <p>Договор оферты</p>
+        <p>© БубиКопф, 2023</p>
       </div>
     </footer>
   </div>
@@ -78,18 +78,6 @@ export default {
     }
   },
 
-  // mounted() {
-  //   this.cart = this.$store.state.cart
-  // },
-  // computed: {
-  //     cartTotalLength() {
-  //         let totalLength = 0
-  //         for (let i = 0; i < this.cart.items.length; i++) {
-  //             totalLength += this.cart.items[i].quantity
-  //         }
-  //         return totalLength
-  //     }
-  // },
   methods: {
     switchLang() {
       i18n.locale === "ru" ? i18n.locale = "en" : i18n.locale = "ru"

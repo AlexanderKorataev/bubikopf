@@ -2,18 +2,18 @@
     <div class="page-log-in">
         <div class="columns">
             <div class="column is-4 is-offset-4">
-                <h1 class="title">Вход</h1>
+                <h1 class="title">{{ $t('Login') }}</h1>
 
                 <form @submit.prevent="submitForm">
                     <div class="field">
-                        <label>Email</label>
+                        <label>{{ $t('userName') }}</label>
                         <div class="control">
                             <input type="text" class="input" v-model="username">
                         </div>
                     </div>
 
                     <div class="field">
-                        <label>Пароль</label>
+                        <label>{{ $t('password') }}</label>
                         <div class="control">
                             <input type="password" class="input" v-model="password">
                         </div>
@@ -25,13 +25,19 @@
 
                     <div class="field">
                         <div class="control">
-                            <button class="button is-dark">Log in</button>
+                            <button class="button is-dark">{{ $t('LogIn') }}</button>
                         </div>
                     </div>
 
                     <hr style="background-color:#242424">
 
-                    Или <router-link to="/sign-up">нажмите здесь</router-link> чтобы зарегистрироваться
+                    <template v-if="$i18n.locale === 'ru'">
+                        Или <router-link to="/sign-up">нажмите здесь</router-link> чтобы зарегистрироваться
+                    </template>
+
+                    <template v-if="$i18n.locale === 'en'">
+                        Or <router-link to="/sign-up">click here</router-link> to sign up
+                    </template>
                 </form>
             </div>
         </div>

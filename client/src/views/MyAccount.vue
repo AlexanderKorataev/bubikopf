@@ -49,7 +49,7 @@ export default {
         };
     },
     mounted() {
-        document.title = 'My account | БубиКопф'
+        document.title = 'Личный кабинет | БубиКопф'
         this.getMyOrders()
         this.getLatestProducts()
     },
@@ -70,7 +70,7 @@ export default {
             .then((response) => {
               this.orders = response.data;
 
-              this.lessons = [this.orders.find(x => x.get_payment_status === 'succeeded')];
+              this.lessons = this.orders.filter(x => x.get_payment_status === 'succeeded');
             })
             .catch((error) => {
               console.log(error);
